@@ -2,74 +2,75 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-	static int[] parent;
-	static PriorityQueue<pEdge> queue;
+    static class Edge implements Comparable<Edge>{
+        int start;
+        int end;
+        int value;
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int N = sc.nextInt();
-		int M = sc.nextInt();
-		queue = new PriorityQueue<>();
-		parent = new int[N + 1];
-		for (int i = 0; i <= N; i++) {
-			parent[i] = i;
-		}
+        public Edge(int start, int end, int value){
+            this.start = start;
+            this.end = end;
+            this.value = value;
+        }
 
-		for (int i = 0; i < M; i++) {
-			int s = sc.nextInt();
-			int e = sc.nextInt();
-			int v = sc.nextInt();
-			queue.add(new pEdge(s, e, v));
-		}
+        @Override
+        public int compareTo(Edge o){
+            return this.value - o.value;
+        }
+    }
 
-		int useEdge = 0;
-		int result = 0;
-		while (useEdge < N - 1) {
-			pEdge now = queue.poll();
-			if (find(now.s) != find(now.e)) {
-				union(now.s, now.e);
-				result += now.v;
-				useEdge++;
-			}
-		}
+    static int N, M;
+    static PriorityQueue<Edge> pq;
+    static int[] parent;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
 
-		System.out.println(result);
+        pq = new PriorityQueue<>();
+        parent = new int[N+1];
+        for (int i = 0; i < N + 1; i++) {
+            parent[i] = i;
+        }
 
-	}
+        for (int i = 0; i < M; i++) {
+            st = new StringTokenizer(br.readLine());
+            int s = Integer.parseInt(st.nextToken());
+            int e = Integer.parseInt(st.nextToken());
+            int v = Integer.parseInt(st.nextToken());
 
-	static void union(int a, int b) {
-		a = find(a);
-		b = find(b);
+            pq.add(new Edge(s, e, v));
+        }
 
-		if (a != b) {
-			parent[b] = a;
-		}
-	}
+        int usedEdge = 0;
+        int result = 0;
 
-	static int find(int a) {
-		if (parent[a] == a)
-			return a;
-		else
-			return parent[a] = find(parent[a]);
-	}
+        while(usedEdge < N-1){
+            Edge now = pq.poll();
+            if(find(now.start) != find(now.end)){
+                union(now.start, now.end);
+                result+=now.value;
+                usedEdge++;
+            }
+        }
 
-}
+        System.out.println(result);
+    }
 
-class pEdge implements Comparable<pEdge> {
+    static int find(int a){
+        if(parent[a] == a){
+            return a;
+        }
+        return parent[a] = find(parent[a]);
+    }
 
-	int s;
-	int e;
-	int v;
+    static void union(int a, int b){
+        a = find(a);
+        b = find(b);
 
-	pEdge(int s, int e, int v) {
-		this.s = s;
-		this.e = e;
-		this.v = v;
-	}
-
-	@Override
-	public int compareTo(pEdge o) {
-		return this.v - o.v;
-	}
-
+        if(a != b){
+            parent[b] = a;
+        }
+    }
 }
