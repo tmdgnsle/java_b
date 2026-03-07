@@ -22,7 +22,7 @@ public class Main {
         }
 
         for(int i = 0; i<N-1; i++){
-            answer += prices[i] * dist[i];
+            answer += (long) prices[i] * dist[i];
         }
 
         System.out.println(answer);
