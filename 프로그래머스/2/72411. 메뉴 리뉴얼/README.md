@@ -1,10 +1,10 @@
 # [level 2] 메뉴 리뉴얼 - 72411 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/72411?language=java) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/72411?language=kotlin) 
 
 ### 성능 요약
 
-메모리: 84.3 MB, 시간: 16.89 ms
+메모리: 65.8 MB, 시간: 35.88 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2026년 03월 26일 16:57:34
+2026년 03월 26일 17:06:23
 
 ### 문제 설명
 
