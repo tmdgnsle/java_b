@@ -1,23 +1,20 @@
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import java.util.StringTokenizer
 
 fun main() {
     val br = BufferedReader(InputStreamReader(System.`in`))
-    val N = br.readLine().toInt()
-    val str = br.readLine().toCharArray()
+    val n = br.readLine().toInt()
+    val str = br.readLine()
 
-
+    val mod = 1234567891L
     var total = 0L
-    for (i in 0 until N) {
-        var r = 1L
-        repeat(i) {
-            r *= 31L
-        }
-        total += (str[i] - 'a' + 1).toLong() * r
+    var r = 1L
+
+    for (i in 0 until n) {
+        val value = (str[i] - 'a' + 1).toLong()
+        total = (total + value * r) % mod
+        r = (r * 31) % mod
     }
 
-    println(total % 1234567891)
-
-
+    println(total)
 }
