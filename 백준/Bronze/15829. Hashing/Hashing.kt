@@ -10,11 +10,11 @@ fun main() {
 
     var total = 0L
     for (i in 0 until N) {
-        var r = 1
+        var r = 1L
         repeat(i) {
-            r *= 31
+            r *= 31L
         }
-        total += (str[i] - 'a' + 1).toLong() * r.toLong()
+        total += (str[i] - 'a' + 1).toLong() * r
     }
 
     println(total % 1234567891)
