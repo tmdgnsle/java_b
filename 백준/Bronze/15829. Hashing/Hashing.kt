@@ -14,7 +14,7 @@ fun main() {
         repeat(i) {
             r *= 31
         }
-        total += (str[i] - 'a' + 1) * r
+        total += (str[i] - 'a' + 1).toLong() * r.toLong()
     }
 
     println(total % 1234567891)
