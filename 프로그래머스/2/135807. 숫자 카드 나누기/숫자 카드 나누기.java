@@ -1,40 +1,36 @@
 import java.util.*;
 class Solution {
     public int solution(int[] arrayA, int[] arrayB) {
-        int answer = Math.max(find(arrayA, arrayB), find(arrayB, arrayA));
-        return answer;
-    }
-    
-    static int find(int[] arrayA, int[] arrayB){
-        int num = 0;
-        
-        int min = arrayA[0];
-        
-        for(int i = 2; i<=min; i++){
-            if(min % i == 0){
-                boolean all = true;
-                for(int j = 1; j<arrayA.length; j++){
-                    if(arrayA[j] % i != 0){
-                        all = false;
-                        break;
-                    }
-                }
-                if(all) {
-                    boolean op = true;
-                    for(int n: arrayB){
-                        if(n % i == 0){
-                            op = false;
-                            break;
-                        }
-                    }
-                    if(op) num = i;
-                }
-            }
+        int gcdA = arrayA[0];
+        int gcdB = arrayB[0];
+        for(int i = 1; i<arrayA.length; i++){
+            gcdA = gcd(gcdA, arrayA[i]);
+            gcdB = gcd(gcdB, arrayB[i]);
         }
         
+        int answerA = 0;
+        int answerB = 0;
+        if(canDivide(gcdA, arrayB)) answerA = gcdA;
+        if(canDivide(gcdB, arrayA)) answerB = gcdB;
         
         
-        return num;
+        
+        return Math.max(answerA, answerB);
     }
     
+    static int gcd(int a, int b){
+        while(b != 0){
+            int temp = a % b;
+            a = b;
+            b = temp;
+        }
+        return a;
+    }
+    
+    static boolean canDivide(int num, int[] arr){
+        for(int a: arr){
+            if(a % num == 0) return false;
+        }
+        return true;
+    }
 }
