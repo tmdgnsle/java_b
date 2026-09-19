@@ -1,47 +1,47 @@
 import java.util.*;
-
 class Solution {
-    static boolean[] v;
-    static ArrayList<Integer>[] arr;
+    static int answer = 0;
+    static int n;
+    static ArrayList<Integer>[] nets;
+    static boolean[] visited;
     public int solution(int n, int[][] computers) {
-        int answer = 0;
-        int length = computers.length;
-        v = new boolean[length];
-        arr = new ArrayList[length];
-        
-        for(int i = 0; i<length; i++){
-            arr[i] = new ArrayList<>();
+        this.n = n;
+        nets = new ArrayList[n];
+        for(int i = 0; i<n; i++){
+            nets[i] = new ArrayList<>();
         }
         
-        for(int i = 0; i<length; i++){
-            for(int j = 0; j<length; j++){
-                if(i == j) continue;
-                
+        for(int i = 0; i<n; i++){
+            for(int j = 0; j<n; j++){
                 if(computers[i][j] == 1){
-                    arr[i].add(j);
+                    nets[i].add(j);
                 }
             }
         }
         
-        
-        for(int i = 0; i<length; i++){
-            if(!v[i]){
+        visited = new boolean[n];
+        for(int i = 0; i<n; i++){
+            if(!visited[i]){
+                bfs(i);
                 answer++;
-                dfs(i);
             }
         }
-        
-        
         
         return answer;
     }
     
-    
-    static void dfs(int start){
-        v[start] = true;
-        for(int computer: arr[start]){
-            if(!v[computer]){
-                dfs(computer);
+    static void bfs(int num){
+        visited[num] = true;
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(num);
+        
+        while(!queue.isEmpty()){
+            int c = queue.poll();
+            for(int next: nets[c]){
+                if(!visited[next]){
+                    visited[next] = true;
+                    queue.add(next);
+                }
             }
         }
     }
