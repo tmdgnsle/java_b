@@ -1,9 +1,8 @@
 import java.util.*;
 class Solution {
     public int solution(int[][] triangle) {
-        
-        int[][] d = new int[triangle.length][triangle.length];
         int answer = 0;
+        int[][] d = new int[triangle.length][triangle.length];
         d[0][0] = triangle[0][0];
         for(int i = 1; i<triangle.length; i++){
             for(int j = 0; j<triangle[i].length; j++){
@@ -17,8 +16,6 @@ class Solution {
                 answer = Math.max(d[i][j], answer);
             }
         }
-        
-        
         return answer;
     }
 }
