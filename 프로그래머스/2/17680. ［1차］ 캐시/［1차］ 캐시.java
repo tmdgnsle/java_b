@@ -1,18 +1,16 @@
 import java.util.*;
-
 class Solution {
     public int solution(int cacheSize, String[] cities) {
+        if(cacheSize == 0) return cities.length * 5;
         
         HashMap<String, Integer> cache = new HashMap<>();
         int answer = 0;
-        
-        if(cacheSize == 0) return cities.length * 5;
         
         for(String city: cities){
             city = city.toLowerCase();
             if(cache.containsKey(city)){
                 answer += 1;
-            } else {
+            }else{
                 answer += 5;
                 if(cache.size() == cacheSize){
                     int max = 0;
@@ -24,17 +22,14 @@ class Solution {
                         }
                     }
                     cache.remove(maxKey);
-                    
                 }
             }
             
             for(String key: cache.keySet()){
-                cache.put(key, cache.get(key) +1);
+                cache.put(key, cache.get(key) + 1);
             }
             cache.put(city, 1);
-            
         }
-        
         return answer;
     }
 }
